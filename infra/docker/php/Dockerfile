@@ -38,7 +38,7 @@ RUN apt-get update && \
   mkdir /var/run/php-fpm && \
   mkdir -p /tmp/cache/views && \
   chmod 777 -R /tmp/cache && \
-  docker-php-ext-install intl pdo_mysql zip bcmath && \
+  docker-php-ext-install intl pdo_mysql zip bcmath sockets && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
 
