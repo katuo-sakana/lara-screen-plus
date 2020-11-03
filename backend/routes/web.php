@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index')->name('welcome');
+Route::post('/comment', 'HomeController@capture');
+
+Route::get('/comment', 'HomeController@comment')->name('comment');
 
 Auth::routes();
 

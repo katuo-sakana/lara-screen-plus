@@ -15,19 +15,30 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('welcome');
+    }
+
+    public function capture(Request $request)
+    {
+        $capture_url = $request->url;
+
         $puppeteer = new Puppeteer;
         // $browser = $puppeteer->launch();
         $browser = $puppeteer->launch([
             'executablePath' => env('CHROMIUM_PATH'),
             'args' => ['--no-sandbox', '--disable-setuid-sandbox']
-            // 'executablePath' => '/path/to/Chrome'
         ]);
 
         $page = $browser->newPage();
-        $page->goto('https://www.s-oj.com/ec-business/system/php-puppeteer-puphpeteer/');
-        $page->screenshot(['path' => 'example04.png']);
+        $page->goto($capture_url);
+        $page->screenshot(['path' => 'example05.png']);
 
         $browser->close();
-        return view('welcome');
+        return view('comment');
+    }
+
+    public function comment()
+    {
+        return view('comment');
     }
 }
