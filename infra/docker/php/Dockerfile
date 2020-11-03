@@ -30,7 +30,18 @@ ENV TZ=UTC \
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && \
-  apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales && \
+  apt-get -y install curl wget gnupg git libicu-dev libonig-dev libzip-dev unzip locales && \
+  curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+  apt-get -y install nodejs && \
+  npm install npm@latest -g && \
+  npm install -g yarn && \
+  npm install --global --unsafe-perm puppeteer && \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+  sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' && \
+  apt-get update && \
+  apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-ipafont-mincho fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends && \
+  rm -rf /var/lib/apt/lists/* && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   locale-gen en_US.UTF-8 && \
@@ -41,6 +52,9 @@ RUN apt-get update && \
   docker-php-ext-install intl pdo_mysql zip bcmath sockets && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV CHROMIUM_PATH google-chrome-stable
 
 COPY ./php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 COPY ./php.ini /usr/local/etc/php/php.ini
