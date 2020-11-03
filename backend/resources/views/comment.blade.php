@@ -6,7 +6,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Comment</div>
-
+                <capture-wrap>
+                </capture-wrap>
             </div>
         </div>
     </div>

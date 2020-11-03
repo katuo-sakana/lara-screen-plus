@@ -8,7 +8,7 @@
                 <div class="card-header">Capture plus</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('comment') }}">
+                    <form method="POST" action="{{ url('capture') }}">
                         @csrf
                         <div class="form-group">
                             <label for="urlInput">指定のURLを入力ください</label>
