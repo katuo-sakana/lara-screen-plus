@@ -34,7 +34,7 @@ class HomeController extends Controller
         $page->screenshot(['path' => 'example05.png']);
 
         $browser->close();
-        return view('comment');
+        return redirect()->route('comment');
     }
 
     public function comment()

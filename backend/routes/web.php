@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('welcome');
-Route::post('/capture', 'HomeController@capture');
+Route::post('/', 'HomeController@capture');
 
 Route::get('/comment', 'HomeController@comment')->name('comment');
 
