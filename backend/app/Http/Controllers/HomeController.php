@@ -31,7 +31,10 @@ class HomeController extends Controller
 
         $page = $browser->newPage();
         $page->goto($capture_url);
-        $page->screenshot(['path' => 'example05.png']);
+        $page->screenshot([
+            'path' => 'example05.png',
+            'fullPage' => true
+        ]);
 
         $browser->close();
         return redirect()->route('comment');
