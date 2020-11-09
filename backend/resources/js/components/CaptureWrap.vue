@@ -1,51 +1,45 @@
 <template>
-    <div class="container">
+    <div class="comment-wrapper">
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner">
           <template v-for="item in positionList">
             <div v-bind:class="{ 'comment-done' : item.done }" v-if="item.status === true" :key="item.index">
               <div>
                 <div>
-                  <div>
-                    <div>
-                      <div>
-                        <span class="click-btn">
-                          {{ item.index }}
-                        </span>
-                        <textarea
-                          name=""
-                          id=""
-                          class="update-form-textarea"
-                          placeholder=""
-                          v-model="item.message"
-                          v-bind:readonly="item.is_readonly"
-                          v-on:blur="item.is_readonly = true"
-                          cols="30"
-                          rows="4"
-                        ></textarea>
-                      </div>
-                      <button v-on:click.stop="commentScroll(item.positionY)">
-                      移動
-                      </button>
-                      <button v-on:click.stop="commentDelete(item.index)" color="error">
-                      削除
-                      </button>
-                      <button v-on:click.stop="commentDone(item.index)" color="success">
-                      完了
-                      </button>
-                      <button v-on:click.stop="commentNotDone(item.index)" color="info">
-                      未完了
-                      </button>
-                      <button
-                        color="success"
-                        depressed
-                         v-on:click.stop="commentEdit(item.index)"
-                      >
-                        編集
-                      </button>
-                    </div>
-                  </div>
+                  <span class="click-btn">
+                    {{ item.index }}
+                  </span>
+                  <textarea
+                    name=""
+                    id=""
+                    class="update-form-textarea"
+                    placeholder=""
+                    v-model="item.message"
+                    v-bind:readonly="item.is_readonly"
+                    v-on:blur="item.is_readonly = true"
+                    cols="30"
+                    rows="4"
+                  ></textarea>
                 </div>
+                <button v-on:click.stop="commentScroll(item.windowY)">
+                移動
+                </button>
+                <button v-on:click.stop="commentDelete(item.index)" color="error">
+                削除
+                </button>
+                <button v-on:click.stop="commentDone(item.index)" color="success">
+                完了
+                </button>
+                <button v-on:click.stop="commentNotDone(item.index)" color="info">
+                未完了
+                </button>
+                <button
+                  color="success"
+                  depressed
+                    v-on:click.stop="commentEdit(item.index)"
+                >
+                  編集
+                </button>
               </div>
             </div>
           </template>
@@ -53,55 +47,57 @@
       </div>
       <div class="container__images" id="js-targe" v-on:click="updateMessage">
         <!-- <img :src="imgSrc" /> -->
-        <img src="example05.png" alt="">
-
-        <template v-for="item in positionList">
-          <div v-if="item.status === true" :key="item.index" v-on:click.stop>
-            <div
-              class="click-btn click-btn--position"
-              v-bind:style="{
-                top: item.positionY + 'px',
-                left: item.positionX + 'px',
-              }"
-            >
-              {{ item.index }}
+        <div class="container__images-inner">
+          <img src="example05.png" alt="">
+  
+          <template v-for="item in positionList">
+            <div v-if="item.status === true" :key="item.index" v-on:click.stop>
+              <div
+                class="click-btn click-btn--position"
+                v-bind:style="{
+                  top: item.positionY + 'px',
+                  left: item.positionX + 'px',
+                }"
+              >
+                {{ item.index }}
+              </div>
+  
+              <form
+                class="update-form"
+                v-if="item.formStatus === true"
+                action
+                method="post"
+                v-bind:style="{
+                  top: item.positionFormY + 'px',
+                  left: item.positionFormX + 'px',
+                }"
+              >
+                <div class="update-form-upper">
+                  <button v-on:click.stop="closeMessage(item.index)">
+                    閉じる
+                  </button>
+                </div>
+                <div class="update-form-content">
+                  <textarea
+                    name=""
+                    id=""
+                    class="update-form-textarea"
+                    placeholder="コメントを入力してください"
+                    v-on:click.stop
+                    v-model="item.message"
+                    cols="30"
+                    rows="4"
+                  ></textarea>
+                </div>
+                <div class="update-form-bottom">
+                  <button
+                    v-on:click.stop="isProcessing(item.index)"
+                    >送信</button>
+                </div>
+              </form>
             </div>
-
-            <form
-              class="update-form"
-              v-if="item.formStatus === true"
-              action
-              method="post"
-              v-bind:style="{
-                top: item.positionFormY + 'px',
-                left: item.positionFormX + 'px',
-              }"
-            >
-              <div class="update-form-upper">
-                <button v-on:click.stop="closeMessage(item.index)">
-                  閉じる
-                </button>
-              </div>
-              <div class="update-form-content">
-                <textarea
-                  name=""
-                  id=""
-                  class="update-form-textarea"
-                  placeholder="コメントを入力してください"
-                  v-on:click.stop
-                  v-model="item.message"
-                  cols="30"
-                  rows="4"
-                ></textarea>
-              </div>
-              <div class="update-form-bottom">
-                <button
-                  v-on:click.stop="isProcessing(item.index)"
-                  >送信</button>
-              </div>
-            </form>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
       <!-- id:{{ $route.path }} -->
     </div>
@@ -127,6 +123,7 @@ export default {
           index: 0,
           positionX: 0,
           positionY: 0,
+          windowY: 0,
           positionFormX: 0,
           positionFormY: 0,
         },
@@ -140,8 +137,8 @@ export default {
       }
       let offsetX = e.offsetX; // =>要素左上からのx座標
       let offsetY = e.offsetY; // =>要素左上からのy座標
-      // let pageX = e.pageX; // =>ウィンドウ左上からのx座標
-      // let pageY = e.pageY; // =>ウィンドウ左上からのy座標
+      let pageX = e.pageX; // =>ウィンドウ左上からのx座標
+      let pageY = e.pageY; // =>ウィンドウ左上からのy座標
       // let clientX = e.clientX; // =>ページ左上からのx座標
       // let clientY = e.clientY; // =>ページ左上からのy座標
       this.positionList.push({
@@ -153,6 +150,7 @@ export default {
         index: this.counter,
         positionX: offsetX,
         positionY: offsetY,
+        windowY: pageY,
         positionFormX: offsetX,
         positionFormY: offsetY + 50,
       });
@@ -196,7 +194,7 @@ img {
   max-width: 100%;
   height: auto;
 }
-.container {
+.comment-wrapper {
   display: flex;
   justify-content: space-between;
   width: 1400px;
@@ -208,20 +206,33 @@ img {
   width: 30%;
 }
 .container__contents-inner {
-  position: fixed;
-  top: 0;
   overflow-y: auto;
-  height: 100vh;
-  width: 30%;
+  position: fixed;
+  left: auto;
+  height: 90vh;
+  /* position: sticky;
+  top: 0; */
+  /* position: fixed;
+  top: 0;
+  overflow-y: auto; */
+  
+  width: 27%;
 }
 .comment-done {
   opacity: .5;
 }
 .container__images {
   width: 65%;
+  position: relative;
   /* padding-left: 5%;
   padding-right: 5%; */
-  position: relative;
+  /* position: relative; */
+}
+.container__images-inner {
+  /* overflow-y: auto;
+  position: fixed;
+  left: auto;
+  height: 100vh; */
 }
 .click-btn {
   width: 2em;

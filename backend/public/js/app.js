@@ -200,10 +200,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   //   asyncData({ params }) {
   //     return { imgSrc: "images/" + params.id + "/00.png" };
@@ -222,6 +218,7 @@ __webpack_require__.r(__webpack_exports__);
         index: 0,
         positionX: 0,
         positionY: 0,
+        windowY: 0,
         positionFormX: 0,
         positionFormY: 0
       }]
@@ -236,8 +233,10 @@ __webpack_require__.r(__webpack_exports__);
       var offsetX = e.offsetX; // =>要素左上からのx座標
 
       var offsetY = e.offsetY; // =>要素左上からのy座標
-      // let pageX = e.pageX; // =>ウィンドウ左上からのx座標
-      // let pageY = e.pageY; // =>ウィンドウ左上からのy座標
+
+      var pageX = e.pageX; // =>ウィンドウ左上からのx座標
+
+      var pageY = e.pageY; // =>ウィンドウ左上からのy座標
       // let clientX = e.clientX; // =>ページ左上からのx座標
       // let clientY = e.clientY; // =>ページ左上からのy座標
 
@@ -250,6 +249,7 @@ __webpack_require__.r(__webpack_exports__);
         index: this.counter,
         positionX: offsetX,
         positionY: offsetY,
+        windowY: pageY,
         positionFormX: offsetX,
         positionFormY: offsetY + 50
       });
@@ -301,7 +301,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nimg[data-v-1d21c8d6] {\n  max-width: 100%;\n  height: auto;\n}\n.container[data-v-1d21c8d6] {\n  display: flex;\n  justify-content: space-between;\n  width: 1400px;\n  max-width: 100%;\n  margin-right: auto;\n  margin-left: auto;\n}\n.container__contents[data-v-1d21c8d6] {\n  width: 30%;\n}\n.container__contents-inner[data-v-1d21c8d6] {\n  position: fixed;\n  top: 0;\n  overflow-y: auto;\n  height: 100vh;\n  width: 30%;\n}\n.comment-done[data-v-1d21c8d6] {\n  opacity: .5;\n}\n.container__images[data-v-1d21c8d6] {\n  width: 65%;\n  /* padding-left: 5%;\n  padding-right: 5%; */\n  position: relative;\n}\n.click-btn[data-v-1d21c8d6] {\n  width: 2em;\n  height: 2em;\n  border-radius: 50%;\n  background-color: blue;\n  color: #fff;\n  font-weight: bold;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0.2em;\n  border: 2px solid #fff;\n  box-shadow: 2px 2px 2px #333;\n}\n.click-btn--position[data-v-1d21c8d6] {\n  position: absolute;\n}\n.update-form[data-v-1d21c8d6] {\n  position: absolute;\n  border: 1px solid #aaa;\n  border-radius: 0.8em;\n  background-color: #fff;\n  text-align: right;\n  padding-top: 0.5em;\n}\n.update-form-content-upper[data-v-1d21c8d6] {\n  text-align: right;\n}\n.update-form-content[data-v-1d21c8d6] {\n  /* border-top: 1px solid #aaa; */\n  border-bottom: 1px solid #aaa;\n  padding: 0.5em;\n}\n.update-form-textarea[data-v-1d21c8d6] {\n  padding: 0.3em;\n  width: 100%;\n}\n.update-form-bottom[data-v-1d21c8d6] {\n  padding: 0.5em;\n}\n", ""]);
+exports.push([module.i, "\nimg[data-v-1d21c8d6] {\n  max-width: 100%;\n  height: auto;\n}\n.comment-wrapper[data-v-1d21c8d6] {\n  display: flex;\n  justify-content: space-between;\n  width: 1400px;\n  max-width: 100%;\n  margin-right: auto;\n  margin-left: auto;\n}\n.container__contents[data-v-1d21c8d6] {\n  width: 30%;\n}\n.container__contents-inner[data-v-1d21c8d6] {\n  overflow-y: auto;\n  position: fixed;\n  left: auto;\n  height: 90vh;\n  /* position: sticky;\n  top: 0; */\n  /* position: fixed;\n  top: 0;\n  overflow-y: auto; */\n  \n  width: 27%;\n}\n.comment-done[data-v-1d21c8d6] {\n  opacity: .5;\n}\n.container__images[data-v-1d21c8d6] {\n  width: 65%;\n  position: relative;\n  /* padding-left: 5%;\n  padding-right: 5%; */\n  /* position: relative; */\n}\n.container__images-inner[data-v-1d21c8d6] {\n  /* overflow-y: auto;\n  position: fixed;\n  left: auto;\n  height: 100vh; */\n}\n.click-btn[data-v-1d21c8d6] {\n  width: 2em;\n  height: 2em;\n  border-radius: 50%;\n  background-color: blue;\n  color: #fff;\n  font-weight: bold;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0.2em;\n  border: 2px solid #fff;\n  box-shadow: 2px 2px 2px #333;\n}\n.click-btn--position[data-v-1d21c8d6] {\n  position: absolute;\n}\n.update-form[data-v-1d21c8d6] {\n  position: absolute;\n  border: 1px solid #aaa;\n  border-radius: 0.8em;\n  background-color: #fff;\n  text-align: right;\n  padding-top: 0.5em;\n}\n.update-form-content-upper[data-v-1d21c8d6] {\n  text-align: right;\n}\n.update-form-content[data-v-1d21c8d6] {\n  /* border-top: 1px solid #aaa; */\n  border-bottom: 1px solid #aaa;\n  padding: 0.5em;\n}\n.update-form-textarea[data-v-1d21c8d6] {\n  padding: 0.3em;\n  width: 100%;\n}\n.update-form-bottom[data-v-1d21c8d6] {\n  padding: 0.5em;\n}\n", ""]);
 
 // exports
 
@@ -1417,7 +1417,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "comment-wrapper" }, [
     _c(
       "div",
       { staticClass: "container__contents", attrs: { id: "js-mark" } },
@@ -1435,145 +1435,115 @@ var render = function() {
                       [
                         _c("div", [
                           _c("div", [
-                            _c("div", [
-                              _c("div", [
-                                _c("div", [
-                                  _c("span", { staticClass: "click-btn" }, [
-                                    _vm._v(
-                                      "\n                      " +
-                                        _vm._s(item.index) +
-                                        "\n                    "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: item.message,
-                                        expression: "item.message"
-                                      }
-                                    ],
-                                    staticClass: "update-form-textarea",
-                                    attrs: {
-                                      name: "",
-                                      id: "",
-                                      placeholder: "",
-                                      readonly: item.is_readonly,
-                                      cols: "30",
-                                      rows: "4"
-                                    },
-                                    domProps: { value: item.message },
-                                    on: {
-                                      blur: function($event) {
-                                        item.is_readonly = true
-                                      },
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          item,
-                                          "message",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    on: {
-                                      click: function($event) {
-                                        $event.stopPropagation()
-                                        return _vm.commentScroll(item.positionY)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  移動\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    attrs: { color: "error" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.stopPropagation()
-                                        return _vm.commentDelete(item.index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  削除\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    attrs: { color: "success" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.stopPropagation()
-                                        return _vm.commentDone(item.index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  完了\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    attrs: { color: "info" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.stopPropagation()
-                                        return _vm.commentNotDone(item.index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  未完了\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    attrs: { color: "success", depressed: "" },
-                                    on: {
-                                      click: function($event) {
-                                        $event.stopPropagation()
-                                        return _vm.commentEdit(item.index)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    編集\n                  "
-                                    )
-                                  ]
-                                )
-                              ])
-                            ])
-                          ])
+                            _c("span", { staticClass: "click-btn" }, [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(item.index) +
+                                  "\n              "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: item.message,
+                                  expression: "item.message"
+                                }
+                              ],
+                              staticClass: "update-form-textarea",
+                              attrs: {
+                                name: "",
+                                id: "",
+                                placeholder: "",
+                                readonly: item.is_readonly,
+                                cols: "30",
+                                rows: "4"
+                              },
+                              domProps: { value: item.message },
+                              on: {
+                                blur: function($event) {
+                                  item.is_readonly = true
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(item, "message", $event.target.value)
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.commentScroll(item.windowY)
+                                }
+                              }
+                            },
+                            [_vm._v("\n            移動\n            ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              attrs: { color: "error" },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.commentDelete(item.index)
+                                }
+                              }
+                            },
+                            [_vm._v("\n            削除\n            ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              attrs: { color: "success" },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.commentDone(item.index)
+                                }
+                              }
+                            },
+                            [_vm._v("\n            完了\n            ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              attrs: { color: "info" },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.commentNotDone(item.index)
+                                }
+                              }
+                            },
+                            [_vm._v("\n            未完了\n            ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              attrs: { color: "success", depressed: "" },
+                              on: {
+                                click: function($event) {
+                                  $event.stopPropagation()
+                                  return _vm.commentEdit(item.index)
+                                }
+                              }
+                            },
+                            [_vm._v("\n              編集\n            ")]
+                          )
                         ])
                       ]
                     )
@@ -1594,126 +1564,151 @@ var render = function() {
         on: { click: _vm.updateMessage }
       },
       [
-        _c("img", { attrs: { src: "example05.png", alt: "" } }),
-        _vm._v(" "),
-        _vm._l(_vm.positionList, function(item) {
-          return [
-            item.status === true
-              ? _c(
-                  "div",
-                  {
-                    key: item.index,
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                      }
-                    }
-                  },
-                  [
-                    _c(
+        _c(
+          "div",
+          { staticClass: "container__images-inner" },
+          [
+            _c("img", { attrs: { src: "example05.png", alt: "" } }),
+            _vm._v(" "),
+            _vm._l(_vm.positionList, function(item) {
+              return [
+                item.status === true
+                  ? _c(
                       "div",
                       {
-                        staticClass: "click-btn click-btn--position",
-                        style: {
-                          top: item.positionY + "px",
-                          left: item.positionX + "px"
+                        key: item.index,
+                        on: {
+                          click: function($event) {
+                            $event.stopPropagation()
+                          }
                         }
                       },
                       [
-                        _vm._v(
-                          "\n          " + _vm._s(item.index) + "\n        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    item.formStatus === true
-                      ? _c(
-                          "form",
+                        _c(
+                          "div",
                           {
-                            staticClass: "update-form",
+                            staticClass: "click-btn click-btn--position",
                             style: {
-                              top: item.positionFormY + "px",
-                              left: item.positionFormX + "px"
-                            },
-                            attrs: { action: "", method: "post" }
+                              top: item.positionY + "px",
+                              left: item.positionX + "px"
+                            }
                           },
                           [
-                            _c("div", { staticClass: "update-form-upper" }, [
-                              _c(
-                                "button",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      $event.stopPropagation()
-                                      return _vm.closeMessage(item.index)
-                                    }
-                                  }
-                                },
-                                [_vm._v("\n              閉じる\n            ")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "update-form-content" }, [
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: item.message,
-                                    expression: "item.message"
-                                  }
-                                ],
-                                staticClass: "update-form-textarea",
-                                attrs: {
-                                  name: "",
-                                  id: "",
-                                  placeholder: "コメントを入力してください",
-                                  cols: "30",
-                                  rows: "4"
-                                },
-                                domProps: { value: item.message },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                  },
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      item,
-                                      "message",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "update-form-bottom" }, [
-                              _c(
-                                "button",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      $event.stopPropagation()
-                                      return _vm.isProcessing(item.index)
-                                    }
-                                  }
-                                },
-                                [_vm._v("送信")]
-                              )
-                            ])
+                            _vm._v(
+                              "\n            " +
+                                _vm._s(item.index) +
+                                "\n          "
+                            )
                           ]
-                        )
-                      : _vm._e()
-                  ]
-                )
-              : _vm._e()
-          ]
-        })
-      ],
-      2
+                        ),
+                        _vm._v(" "),
+                        item.formStatus === true
+                          ? _c(
+                              "form",
+                              {
+                                staticClass: "update-form",
+                                style: {
+                                  top: item.positionFormY + "px",
+                                  left: item.positionFormX + "px"
+                                },
+                                attrs: { action: "", method: "post" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "update-form-upper" },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            $event.stopPropagation()
+                                            return _vm.closeMessage(item.index)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                閉じる\n              "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "update-form-content" },
+                                  [
+                                    _c("textarea", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: item.message,
+                                          expression: "item.message"
+                                        }
+                                      ],
+                                      staticClass: "update-form-textarea",
+                                      attrs: {
+                                        name: "",
+                                        id: "",
+                                        placeholder:
+                                          "コメントを入力してください",
+                                        cols: "30",
+                                        rows: "4"
+                                      },
+                                      domProps: { value: item.message },
+                                      on: {
+                                        click: function($event) {
+                                          $event.stopPropagation()
+                                        },
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "message",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "update-form-bottom" },
+                                  [
+                                    _c(
+                                      "button",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            $event.stopPropagation()
+                                            return _vm.isProcessing(item.index)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("送信")]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            })
+          ],
+          2
+        )
+      ]
     )
   ])
 }
