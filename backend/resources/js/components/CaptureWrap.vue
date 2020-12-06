@@ -46,10 +46,8 @@
         </div>
       </div>
       <div class="container__images" id="js-targe" v-on:click="updateMessage">
-        <!-- <img :src="imgSrc" /> -->
         <div class="container__images-inner">
-          <img src="example05.png" alt="">
-  
+          <img :src="imageurl" />
           <template v-for="item in positionList">
             <div v-if="item.status === true" :key="item.index" v-on:click.stop>
               <div
@@ -105,6 +103,7 @@
 
 <script>
 export default {
+  props: ['imageurl'],
 //   asyncData({ params }) {
 //     return { imgSrc: "images/" + params.id + "/00.png" };
 //   },

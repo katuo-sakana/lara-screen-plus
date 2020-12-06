@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<capture-wrap>
+{{-- <img src="{{$url}}" alt=""> --}}
+<capture-wrap imageurl="{{$url}}">
 </capture-wrap>
 @endsection

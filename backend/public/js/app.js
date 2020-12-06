@@ -198,9 +198,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['imageurl'],
   //   asyncData({ params }) {
   //     return { imgSrc: "images/" + params.id + "/00.png" };
   //   },
@@ -1568,7 +1567,7 @@ var render = function() {
           "div",
           { staticClass: "container__images-inner" },
           [
-            _c("img", { attrs: { src: "example05.png", alt: "" } }),
+            _c("img", { attrs: { src: _vm.imageurl } }),
             _vm._v(" "),
             _vm._l(_vm.positionList, function(item) {
               return [

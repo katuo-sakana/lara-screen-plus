@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Nesk\Puphpeteer\Puppeteer;
 
 class HomeController extends Controller
@@ -21,6 +23,9 @@ class HomeController extends Controller
     public function capture(Request $request)
     {
         $capture_url = $request->url;
+        $random_directory = Str::random(20);
+        Storage::makeDirectory($random_directory);
+        $directory_path = storage_path("app/public/{$random_directory}");
 
         $puppeteer = new Puppeteer;
         // $browser = $puppeteer->launch();
@@ -32,16 +37,17 @@ class HomeController extends Controller
         $page = $browser->newPage();
         $page->goto($capture_url);
         $page->screenshot([
-            'path' => 'example05.png',
+            'path' => "{$directory_path}/example01.png",
             'fullPage' => true
         ]);
 
         $browser->close();
-        return redirect()->route('comment');
+        return redirect()->route('comment', ['id' => $random_directory]);
     }
 
-    public function comment()
+    public function comment($id)
     {
-        return view('comment');
+        $url = "/storage/example01.png";
+        return view('comment', compact('url'));
     }
 }
