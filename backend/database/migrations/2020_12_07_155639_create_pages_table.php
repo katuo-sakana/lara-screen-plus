@@ -18,7 +18,7 @@ class CreatePagesTable extends Migration
             $table->bigInteger('counter');
             $table->boolean('processing')->default(true);
             $table->string('url')->nullable();
-            $table->bigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
