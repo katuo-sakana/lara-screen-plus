@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Nesk\Puphpeteer\Puppeteer;
+use App\Page;
 
 class HomeController extends Controller
 {
@@ -48,6 +49,9 @@ class HomeController extends Controller
     public function comment($id)
     {
         $url = "/storage/{$id}/example01.png";
+        $page = new Page;
+        $page->url = $id;
+        $page->save();
         return view('comment', compact('url'));
     }
 }
