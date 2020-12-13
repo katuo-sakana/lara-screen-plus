@@ -12,7 +12,7 @@
                   <textarea
                     name=""
                     id=""
-                    class="update-form-textarea"
+                    class="update-form-textarea form-control mt-2"
                     placeholder=""
                     v-model="item.message"
                     v-bind:readonly="item.is_readonly"
@@ -21,25 +21,27 @@
                     rows="4"
                   ></textarea>
                 </div>
-                <button v-on:click.stop="commentScroll(item.windowY)">
+                <div class="d-flex">
+                  <button v-on:click.stop="commentScroll(item.windowY)" class="btn btn-warning p-2">
                 移動
-                </button>
-                <button v-on:click.stop="commentDelete(item.index)" color="error">
-                削除
-                </button>
-                <button v-on:click.stop="commentDone(item.index)" color="success">
-                完了
-                </button>
-                <button v-on:click.stop="commentNotDone(item.index)" color="info">
-                未完了
-                </button>
-                <button
-                  color="success"
-                  depressed
-                    v-on:click.stop="commentEdit(item.index)"
-                >
-                  編集
-                </button>
+                  </button>
+                  <button v-on:click.stop="commentDelete(item.index)" class="btn btn-danger p-2">
+                  削除
+                  </button>
+                  <button v-on:click.stop="commentDone(item.index)" class="btn btn-success p-2">
+                  完了
+                  </button>
+                  <button v-on:click.stop="commentNotDone(item.index)" class="btn btn-light p-2">
+                  未完了
+                  </button>
+                  <button
+                    class="btn btn-info p-2"
+                    depressed
+                      v-on:click.stop="commentEdit(item.index)"
+                  >
+                    編集
+                  </button>
+                </div>
               </div>
             </div>
           </template>
@@ -71,15 +73,17 @@
                 }"
               >
                 <div class="update-form-upper">
-                  <button v-on:click.stop="closeMessage(item.index)">
-                    閉じる
-                  </button>
+                  <div class="pr-3">
+                    <button v-on:click.stop="closeMessage(item.index)" type="button" class="close" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
                 </div>
                 <div class="update-form-content">
                   <textarea
                     name=""
                     id=""
-                    class="update-form-textarea"
+                    class="update-form-textarea form-control"
                     placeholder="コメントを入力してください"
                     v-on:click.stop
                     v-model="item.message"
@@ -89,6 +93,7 @@
                 </div>
                 <div class="update-form-bottom">
                   <button
+                    class="btn btn-primary p-2"
                     v-on:click.stop="isProcessing(item.index)"
                     >送信</button>
                 </div>

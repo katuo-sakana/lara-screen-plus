@@ -198,6 +198,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['imageurl'],
   //   asyncData({ params }) {
@@ -1451,7 +1456,8 @@ var render = function() {
                                   expression: "item.message"
                                 }
                               ],
-                              staticClass: "update-form-textarea",
+                              staticClass:
+                                "update-form-textarea form-control mt-2",
                               attrs: {
                                 name: "",
                                 id: "",
@@ -1475,74 +1481,78 @@ var render = function() {
                             })
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.commentScroll(item.windowY)
+                          _c("div", { staticClass: "d-flex" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning p-2",
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.commentScroll(item.windowY)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n            移動\n            ")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              attrs: { color: "error" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.commentDelete(item.index)
+                              },
+                              [_vm._v("\n            移動\n              ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger p-2",
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.commentDelete(item.index)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n            削除\n            ")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              attrs: { color: "success" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.commentDone(item.index)
+                              },
+                              [_vm._v("\n              削除\n              ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success p-2",
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.commentDone(item.index)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n            完了\n            ")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              attrs: { color: "info" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.commentNotDone(item.index)
+                              },
+                              [_vm._v("\n              完了\n              ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-light p-2",
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.commentNotDone(item.index)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n            未完了\n            ")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              attrs: { color: "success", depressed: "" },
-                              on: {
-                                click: function($event) {
-                                  $event.stopPropagation()
-                                  return _vm.commentEdit(item.index)
+                              },
+                              [_vm._v("\n              未完了\n              ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info p-2",
+                                attrs: { depressed: "" },
+                                on: {
+                                  click: function($event) {
+                                    $event.stopPropagation()
+                                    return _vm.commentEdit(item.index)
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v("\n              編集\n            ")]
-                          )
+                              },
+                              [_vm._v("\n                編集\n              ")]
+                            )
+                          ])
                         ])
                       ]
                     )
@@ -1617,22 +1627,35 @@ var render = function() {
                                   "div",
                                   { staticClass: "update-form-upper" },
                                   [
-                                    _c(
-                                      "button",
-                                      {
-                                        on: {
-                                          click: function($event) {
-                                            $event.stopPropagation()
-                                            return _vm.closeMessage(item.index)
+                                    _c("div", { staticClass: "pr-3" }, [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "close",
+                                          attrs: {
+                                            type: "button",
+                                            "aria-label": "Close"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              $event.stopPropagation()
+                                              return _vm.closeMessage(
+                                                item.index
+                                              )
+                                            }
                                           }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                閉じる\n              "
-                                        )
-                                      ]
-                                    )
+                                        },
+                                        [
+                                          _c(
+                                            "span",
+                                            {
+                                              attrs: { "aria-hidden": "true" }
+                                            },
+                                            [_vm._v("×")]
+                                          )
+                                        ]
+                                      )
+                                    ])
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -1649,7 +1672,8 @@ var render = function() {
                                           expression: "item.message"
                                         }
                                       ],
-                                      staticClass: "update-form-textarea",
+                                      staticClass:
+                                        "update-form-textarea form-control",
                                       attrs: {
                                         name: "",
                                         id: "",
@@ -1685,6 +1709,7 @@ var render = function() {
                                     _c(
                                       "button",
                                       {
+                                        staticClass: "btn btn-primary p-2",
                                         on: {
                                           click: function($event) {
                                             $event.stopPropagation()
