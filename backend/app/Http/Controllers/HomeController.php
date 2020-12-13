@@ -47,7 +47,7 @@ class HomeController extends Controller
 
     public function comment($id)
     {
-        $url = "/storage/example01.png";
+        $url = "/storage/{$id}/example01.png";
         return view('comment', compact('url'));
     }
 }
