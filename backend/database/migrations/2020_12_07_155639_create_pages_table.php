@@ -15,7 +15,7 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('counter');
+            $table->bigInteger('counter')->default(1);
             $table->boolean('processing')->default(true);
             $table->string('url')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
