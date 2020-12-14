@@ -41,12 +41,6 @@
                   >
                     編集
                   </button>
-                  <button
-                    class="btn btn-info p-2"
-                      v-on:click.stop="commentCreate(item.index)"
-                  >
-                    保存
-                  </button>
                 </div>
               </div>
             </div>
@@ -100,7 +94,7 @@
                 <div class="update-form-bottom">
                   <button
                     class="btn btn-primary p-2"
-                    v-on:click.stop="isProcessing(item.index)"
+                    v-on:click.stop="isProcessing(item.index); commentCreate(item.index)"
                     >送信</button>
                 </div>
               </form>
@@ -199,13 +193,23 @@ export default {
     async commentCreate(currentIndex) {
       this.positionList[currentIndex].is_readonly = false;
       // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
-      const article = {
-        'title': 'title',
-        'content': 'content'
+      const request = {
+        'status': 'titledesuyo',
+        'formStatus': 'content',
+        'done': 'content',
+        'is_readonly': 'content',
+        'message': 'content',
+        'index': 'content',
+        'positionX': 'content',
+        'positionY': 'content',
+        'windowY': 'content',
+        'positionFormX': 'content',
+        'positionFormY': 'content',
+        'page_id': 'content',
       };
       
       
-      const response = await axios.post(this.endpoint, article);
+      const response = await axios.post(this.endpoint, request);
 
       // this.isLikedBy = true
       // this.countLikes = response.data.countLikes
