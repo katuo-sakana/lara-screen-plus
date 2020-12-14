@@ -48,20 +48,20 @@ class HomeController extends Controller
         $page->url = $random_directory;
         $page->save();
 
-        return redirect()->route('comment', ['id' => $random_directory]);
+        return redirect()->route('comment', ['directory' => $random_directory]);
     }
 
-    public function comment($id)
+    public function comment($directory)
     {
-        $url = "/storage/{$id}/example01.png";
-        return view('comment', compact('url', 'id'));
+        $image_url = "/storage/{$directory}/example01.png";
+        return view('comment', compact('image_url', 'directory'));
     }
 
     public function commentCreate(Request $request, Comment $comment)
     {
         // return ['title' => request('title'), 'content' => request('content')];
         $page = new Page;
-        $page->url = 'dummy2';
+        $page->url = $request->title;
         $page->save();
         dd(request('title'));
         $comment->status = $request->status;

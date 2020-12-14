@@ -2036,12 +2036,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['imageurl', 'endpoint', 'directory'],
   //   asyncData({ params }) {
@@ -2131,19 +2125,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var article, response;
+        var request, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _this.positionList[currentIndex].is_readonly = false; // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
 
-                article = {
-                  'title': 'title',
-                  'content': 'content'
+                request = {
+                  'status': 'titledesuyo',
+                  'formStatus': 'content',
+                  'done': 'content',
+                  'is_readonly': 'content',
+                  'message': 'content',
+                  'index': 'content',
+                  'positionX': 'content',
+                  'positionY': 'content',
+                  'windowY': 'content',
+                  'positionFormX': 'content',
+                  'positionFormY': 'content',
+                  'page_id': 'content'
                 };
                 _context.next = 4;
-                return axios.post(_this.endpoint, article);
+                return axios.post(_this.endpoint, request);
 
               case 4:
                 response = _context.sent;
@@ -4178,20 +4182,6 @@ var render = function() {
                                 }
                               },
                               [_vm._v("\n                編集\n              ")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-info p-2",
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentCreate(item.index)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n                保存\n              ")]
                             )
                           ])
                         ])
@@ -4354,7 +4344,8 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             $event.stopPropagation()
-                                            return _vm.isProcessing(item.index)
+                                            _vm.isProcessing(item.index)
+                                            _vm.commentCreate(item.index)
                                           }
                                         }
                                       },

@@ -2,6 +2,7 @@
 
 @section('content')
 {{-- <img src="{{$url}}" alt=""> --}}
-<capture-wrap imageurl="{{$url}}" directory="{{$id}}" endpoint="{{ route('comment', ['id' => $id]) }}">
+<capture-wrap imageurl="{{ $image_url }}" directory="{{$directory}}"
+  endpoint="{{ route('comment', ['directory' => $directory]) }}">
 </capture-wrap>
 @endsection
