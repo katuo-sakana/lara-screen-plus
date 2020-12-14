@@ -41,6 +41,12 @@
                   >
                     編集
                   </button>
+                  <button
+                    class="btn btn-info p-2"
+                      v-on:click.stop="commentCreate(item.index)"
+                  >
+                    保存
+                  </button>
                 </div>
               </div>
             </div>
@@ -108,7 +114,8 @@
 
 <script>
 export default {
-  props: ['imageurl'],
+  props: 
+  ['imageurl','endpoint','directory'],
 //   asyncData({ params }) {
 //     return { imgSrc: "images/" + params.id + "/00.png" };
 //   },
@@ -188,7 +195,28 @@ export default {
     },
     commentEdit: function (currentIndex) {
       this.positionList[currentIndex].is_readonly = false;
-    }
+    },
+    async commentCreate(currentIndex) {
+      this.positionList[currentIndex].is_readonly = false;
+      // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+      const article = {
+        'title': 'title',
+        'content': 'content'
+      };
+      
+      
+      const response = await axios.post(this.endpoint, article);
+
+      // this.isLikedBy = true
+      // this.countLikes = response.data.countLikes
+      
+      
+      
+      // await axios.post('/' + this.url, article).then(res => {
+      //   console.log(res.data.title);
+      //   console.log(res.data.content);
+      // });
+    },
   },
 };
 </script>

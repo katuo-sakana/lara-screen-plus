@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('welcome');
 Route::post('/', 'HomeController@capture');
 
 Route::get('/{id}', 'HomeController@comment')->name('comment');
+Route::post('/{id}', 'HomeController@commentCreate');
 
 Auth::routes();
 

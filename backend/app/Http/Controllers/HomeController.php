@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Nesk\Puphpeteer\Puppeteer;
 use App\Page;
+use App\Comment;
 
 class HomeController extends Controller
 {
@@ -41,17 +42,28 @@ class HomeController extends Controller
             'path' => "{$directory_path}/example01.png",
             'fullPage' => true
         ]);
-
         $browser->close();
+
+        $page = new Page;
+        $page->url = $random_directory;
+        $page->save();
+
         return redirect()->route('comment', ['id' => $random_directory]);
     }
 
     public function comment($id)
     {
         $url = "/storage/{$id}/example01.png";
+        return view('comment', compact('url', 'id'));
+    }
+
+    public function commentCreate(Request $request, Comment $comment)
+    {
+        // return ['title' => request('title'), 'content' => request('content')];
         $page = new Page;
-        $page->url = $id;
+        $page->url = 'dummy2';
         $page->save();
-        return view('comment', compact('url'));
+        dd(request('title'));
+        $comment->status = $request->status;
     }
 }
