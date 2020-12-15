@@ -51,19 +51,28 @@ class HomeController extends Controller
         return redirect()->route('comment', ['directory' => $random_directory]);
     }
 
-    public function comment($directory)
+    public function comment($directory, Page $page)
     {
+        // リダイレクト先のpagesテーブルのid取得
+        $page_id = $page->where('url', $directory)->first()->id;
         $image_url = "/storage/{$directory}/example01.png";
-        return view('comment', compact('image_url', 'directory'));
+        return view('comment', compact('image_url', 'directory', 'page_id'));
     }
 
     public function commentCreate(Request $request, Comment $comment)
     {
-        // return ['title' => request('title'), 'content' => request('content')];
-        $page = new Page;
-        $page->url = $request->title;
-        $page->save();
-        dd(request('title'));
         $comment->status = $request->status;
+        $comment->form_status = $request->formStatus;
+        $comment->done = $request->done;
+        $comment->is_readonly = $request->is_readonly;
+        $comment->message = $request->message;
+        $comment->index = $request->index;
+        $comment->position_x = $request->positionX;
+        $comment->position_y = $request->positionY;
+        $comment->window_y = $request->windowY;
+        $comment->position_form_x = $request->positionFormX;
+        $comment->position_form_y = $request->positionFormY;
+        $comment->page_id = $request->page_id;
+        $comment->save();
     }
 }

@@ -109,7 +109,7 @@
 <script>
 export default {
   props: 
-  ['imageurl','endpoint','directory'],
+  ['imageurl','endpoint','directory','pageid'],
 //   asyncData({ params }) {
 //     return { imgSrc: "images/" + params.id + "/00.png" };
 //   },
@@ -191,23 +191,23 @@ export default {
       this.positionList[currentIndex].is_readonly = false;
     },
     async commentCreate(currentIndex) {
-      this.positionList[currentIndex].is_readonly = false;
+      // 現在の要素リストを取得
+      const currentList = this.positionList[currentIndex];
       // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
       const request = {
-        'status': 'titledesuyo',
-        'formStatus': 'content',
-        'done': 'content',
-        'is_readonly': 'content',
-        'message': 'content',
-        'index': 'content',
-        'positionX': 'content',
-        'positionY': 'content',
-        'windowY': 'content',
-        'positionFormX': 'content',
-        'positionFormY': 'content',
-        'page_id': 'content',
+        'status': currentList.status,
+        'formStatus': currentList.formStatus,
+        'done': currentList.done,
+        'is_readonly': currentList.is_readonly,
+        'message': currentList.message,
+        'index': currentList.index,
+        'positionX': currentList.positionX,
+        'positionY': currentList.positionY,
+        'windowY': currentList.windowY,
+        'positionFormX': currentList.positionFormX,
+        'positionFormY': currentList.positionFormY,
+        'page_id': parseInt(this.pageid),
       };
-      
       
       const response = await axios.post(this.endpoint, request);
 

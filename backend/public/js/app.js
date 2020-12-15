@@ -2037,7 +2037,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['imageurl', 'endpoint', 'directory'],
+  props: ['imageurl', 'endpoint', 'directory', 'pageid'],
   //   asyncData({ params }) {
   //     return { imgSrc: "images/" + params.id + "/00.png" };
   //   },
@@ -2125,26 +2125,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var request, response;
+        var currentList, request, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.positionList[currentIndex].is_readonly = false; // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+                // 現在の要素リストを取得
+                currentList = _this.positionList[currentIndex]; // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
 
                 request = {
-                  'status': 'titledesuyo',
-                  'formStatus': 'content',
-                  'done': 'content',
-                  'is_readonly': 'content',
-                  'message': 'content',
-                  'index': 'content',
-                  'positionX': 'content',
-                  'positionY': 'content',
-                  'windowY': 'content',
-                  'positionFormX': 'content',
-                  'positionFormY': 'content',
-                  'page_id': 'content'
+                  'status': currentList.status,
+                  'formStatus': currentList.formStatus,
+                  'done': currentList.done,
+                  'is_readonly': currentList.is_readonly,
+                  'message': currentList.message,
+                  'index': currentList.index,
+                  'positionX': currentList.positionX,
+                  'positionY': currentList.positionY,
+                  'windowY': currentList.windowY,
+                  'positionFormX': currentList.positionFormX,
+                  'positionFormY': currentList.positionFormY,
+                  'page_id': parseInt(_this.pageid)
                 };
                 _context.next = 4;
                 return axios.post(_this.endpoint, request);
