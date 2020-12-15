@@ -15,19 +15,20 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('status');
-            $table->boolean('form_status');
-            $table->boolean('done');
-            $table->boolean('is_readonly');
+            $table->boolean('status')->default(true);
+            $table->boolean('form_status')->nullable();
+            $table->boolean('done')->nullable();
+            $table->boolean('is_readonly')->nullable();
             $table->string('message')->nullable();
-            $table->bigInteger('index');
-            $table->bigInteger('position_x');
-            $table->bigInteger('position_y');
-            $table->bigInteger('window_y');
-            $table->bigInteger('position_form_x');
-            $table->bigInteger('position_form_y');
-            $table->unsignedBigInteger('page_id');
+            $table->bigInteger('index')->nullable();
+            $table->bigInteger('position_x')->nullable();
+            $table->bigInteger('position_y')->nullable();
+            $table->bigInteger('window_y')->nullable();
+            $table->bigInteger('position_form_x')->nullable();
+            $table->bigInteger('position_form_y')->nullable();
+            $table->unsignedBigInteger('page_id')->nullable();
             $table->foreign('page_id')->references('id')->on('pages');
+            $table->timestamps();
         });
     }
 
