@@ -1924,10 +1924,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2121,44 +2138,78 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     commentEdit: function commentEdit(currentIndex) {
       this.positionList[currentIndex].is_readonly = false;
     },
-    commentCreate: function commentCreate(currentIndex) {
+    commentCreate: function commentCreate(positionList) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var currentList, request, response;
+        var _iterator, _step, positionListItem, request, response;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // 現在の要素リストを取得
-                currentList = _this.positionList[currentIndex]; // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+                _iterator = _createForOfIteratorHelper(positionList);
+                _context.prev = 1;
 
+                _iterator.s();
+
+              case 3:
+                if ((_step = _iterator.n()).done) {
+                  _context.next = 11;
+                  break;
+                }
+
+                positionListItem = _step.value;
+                // 現在の要素リストを取得
+                // const currentList = this.positionList[currentIndex];
+                // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
                 request = {
-                  'status': currentList.status,
-                  'formStatus': currentList.formStatus,
-                  'done': currentList.done,
-                  'is_readonly': currentList.is_readonly,
-                  'message': currentList.message,
-                  'index': currentList.index,
-                  'positionX': currentList.positionX,
-                  'positionY': currentList.positionY,
-                  'windowY': currentList.windowY,
-                  'positionFormX': currentList.positionFormX,
-                  'positionFormY': currentList.positionFormY,
+                  'status': positionListItem.status,
+                  'formStatus': positionListItem.formStatus,
+                  'done': positionListItem.done,
+                  'is_readonly': positionListItem.is_readonly,
+                  'message': positionListItem.message,
+                  'index': positionListItem.index,
+                  'positionX': positionListItem.positionX,
+                  'positionY': positionListItem.positionY,
+                  'windowY': positionListItem.windowY,
+                  'positionFormX': positionListItem.positionFormX,
+                  'positionFormY': positionListItem.positionFormY,
                   'page_id': parseInt(_this.pageid)
                 };
-                _context.next = 4;
+                _context.next = 8;
                 return axios.post(_this.endpoint, request);
 
-              case 4:
+              case 8:
                 response = _context.sent;
 
-              case 5:
+              case 9:
+                _context.next = 3;
+                break;
+
+              case 11:
+                _context.next = 16;
+                break;
+
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](1);
+
+                _iterator.e(_context.t0);
+
+              case 16:
+                _context.prev = 16;
+
+                _iterator.f();
+
+                return _context.finish(16);
+
+              case 19:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[1, 13, 16, 19]]);
       }))();
     }
   }
@@ -4053,320 +4104,374 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comment-wrapper" }, [
+  return _c("div", { staticClass: "main" }, [
     _c(
-      "div",
-      { staticClass: "container__contents", attrs: { id: "js-mark" } },
+      "nav",
+      {
+        staticClass: "navbar navbar-expand-md navbar-light bg-white shadow-sm"
+      },
       [
-        _c(
-          "div",
-          { staticClass: "container__contents-inner" },
-          [
-            _vm._l(_vm.positionList, function(item) {
-              return [
-                item.status === true
-                  ? _c(
-                      "div",
-                      { key: item.index, class: { "comment-done": item.done } },
-                      [
-                        _c("div", [
+        _c("div", { staticClass: "container d-flex justify-content-end" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary p-2",
+              on: {
+                click: function($event) {
+                  $event.stopPropagation()
+                  return _vm.commentCreate(_vm.positionList)
+                }
+              }
+            },
+            [_vm._v("保存する")]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "comment-wrapper" }, [
+      _c(
+        "div",
+        { staticClass: "container__contents", attrs: { id: "js-mark" } },
+        [
+          _c(
+            "div",
+            { staticClass: "container__contents-inner" },
+            [
+              _vm._l(_vm.positionList, function(item) {
+                return [
+                  item.status === true
+                    ? _c(
+                        "div",
+                        {
+                          key: item.index,
+                          class: { "comment-done": item.done }
+                        },
+                        [
                           _c("div", [
-                            _c("span", { staticClass: "click-btn" }, [
+                            _c("div", [
+                              _c("span", { staticClass: "click-btn" }, [
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(item.index) +
+                                    "\n                  "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: item.message,
+                                    expression: "item.message"
+                                  }
+                                ],
+                                staticClass:
+                                  "update-form-textarea form-control mt-2",
+                                attrs: {
+                                  name: "",
+                                  id: "",
+                                  placeholder: "",
+                                  readonly: item.is_readonly,
+                                  cols: "30",
+                                  rows: "4"
+                                },
+                                domProps: { value: item.message },
+                                on: {
+                                  blur: function($event) {
+                                    item.is_readonly = true
+                                  },
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      item,
+                                      "message",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "d-flex" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-warning p-2",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.commentScroll(item.windowY)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                移動\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger p-2",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.commentDelete(item.index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  削除\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-success p-2",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.commentDone(item.index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  完了\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-light p-2",
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.commentNotDone(item.index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                  未完了\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-info p-2",
+                                  attrs: { depressed: "" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.stopPropagation()
+                                      return _vm.commentEdit(item.index)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    編集\n                  "
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              })
+            ],
+            2
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "container__images",
+          attrs: { id: "js-targe" },
+          on: { click: _vm.updateMessage }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "container__images-inner" },
+            [
+              _c("img", { attrs: { src: _vm.imageurl } }),
+              _vm._v(" "),
+              _vm._l(_vm.positionList, function(item) {
+                return [
+                  item.status === true
+                    ? _c(
+                        "div",
+                        {
+                          key: item.index,
+                          on: {
+                            click: function($event) {
+                              $event.stopPropagation()
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "click-btn click-btn--position",
+                              style: {
+                                top: item.positionY + "px",
+                                left: item.positionX + "px"
+                              }
+                            },
+                            [
                               _vm._v(
                                 "\n                " +
                                   _vm._s(item.index) +
                                   "\n              "
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("textarea", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: item.message,
-                                  expression: "item.message"
-                                }
-                              ],
-                              staticClass:
-                                "update-form-textarea form-control mt-2",
-                              attrs: {
-                                name: "",
-                                id: "",
-                                placeholder: "",
-                                readonly: item.is_readonly,
-                                cols: "30",
-                                rows: "4"
-                              },
-                              domProps: { value: item.message },
-                              on: {
-                                blur: function($event) {
-                                  item.is_readonly = true
-                                },
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(item, "message", $event.target.value)
-                                }
-                              }
-                            })
-                          ]),
+                            ]
+                          ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "d-flex" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning p-2",
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentScroll(item.windowY)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n            移動\n              ")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger p-2",
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentDelete(item.index)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n              削除\n              ")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success p-2",
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentDone(item.index)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n              完了\n              ")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-light p-2",
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentNotDone(item.index)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n              未完了\n              ")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-info p-2",
-                                attrs: { depressed: "" },
-                                on: {
-                                  click: function($event) {
-                                    $event.stopPropagation()
-                                    return _vm.commentEdit(item.index)
-                                  }
-                                }
-                              },
-                              [_vm._v("\n                編集\n              ")]
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            })
-          ],
-          2
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "container__images",
-        attrs: { id: "js-targe" },
-        on: { click: _vm.updateMessage }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "container__images-inner" },
-          [
-            _c("img", { attrs: { src: _vm.imageurl } }),
-            _vm._v(" "),
-            _vm._l(_vm.positionList, function(item) {
-              return [
-                item.status === true
-                  ? _c(
-                      "div",
-                      {
-                        key: item.index,
-                        on: {
-                          click: function($event) {
-                            $event.stopPropagation()
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "click-btn click-btn--position",
-                            style: {
-                              top: item.positionY + "px",
-                              left: item.positionX + "px"
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n            " +
-                                _vm._s(item.index) +
-                                "\n          "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        item.formStatus === true
-                          ? _c(
-                              "form",
-                              {
-                                staticClass: "update-form",
-                                style: {
-                                  top: item.positionFormY + "px",
-                                  left: item.positionFormX + "px"
+                          item.formStatus === true
+                            ? _c(
+                                "form",
+                                {
+                                  staticClass: "update-form",
+                                  style: {
+                                    top: item.positionFormY + "px",
+                                    left: item.positionFormX + "px"
+                                  },
+                                  attrs: { action: "", method: "post" }
                                 },
-                                attrs: { action: "", method: "post" }
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "update-form-upper" },
-                                  [
-                                    _c("div", { staticClass: "pr-3" }, [
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "update-form-upper" },
+                                    [
+                                      _c("div", { staticClass: "pr-3" }, [
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "close",
+                                            attrs: {
+                                              type: "button",
+                                              "aria-label": "Close"
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                $event.stopPropagation()
+                                                return _vm.closeMessage(
+                                                  item.index
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              {
+                                                attrs: { "aria-hidden": "true" }
+                                              },
+                                              [_vm._v("×")]
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "update-form-content" },
+                                    [
+                                      _c("textarea", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: item.message,
+                                            expression: "item.message"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "update-form-textarea form-control",
+                                        attrs: {
+                                          name: "",
+                                          id: "",
+                                          placeholder:
+                                            "コメントを入力してください",
+                                          cols: "30",
+                                          rows: "4"
+                                        },
+                                        domProps: { value: item.message },
+                                        on: {
+                                          click: function($event) {
+                                            $event.stopPropagation()
+                                          },
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.$set(
+                                              item,
+                                              "message",
+                                              $event.target.value
+                                            )
+                                          }
+                                        }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    { staticClass: "update-form-bottom" },
+                                    [
                                       _c(
                                         "button",
                                         {
-                                          staticClass: "close",
-                                          attrs: {
-                                            type: "button",
-                                            "aria-label": "Close"
-                                          },
+                                          staticClass: "btn btn-primary p-2",
                                           on: {
                                             click: function($event) {
                                               $event.stopPropagation()
-                                              return _vm.closeMessage(
+                                              return _vm.isProcessing(
                                                 item.index
                                               )
                                             }
                                           }
                                         },
-                                        [
-                                          _c(
-                                            "span",
-                                            {
-                                              attrs: { "aria-hidden": "true" }
-                                            },
-                                            [_vm._v("×")]
-                                          )
-                                        ]
+                                        [_vm._v("送信")]
                                       )
-                                    ])
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "update-form-content" },
-                                  [
-                                    _c("textarea", {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: item.message,
-                                          expression: "item.message"
-                                        }
-                                      ],
-                                      staticClass:
-                                        "update-form-textarea form-control",
-                                      attrs: {
-                                        name: "",
-                                        id: "",
-                                        placeholder:
-                                          "コメントを入力してください",
-                                        cols: "30",
-                                        rows: "4"
-                                      },
-                                      domProps: { value: item.message },
-                                      on: {
-                                        click: function($event) {
-                                          $event.stopPropagation()
-                                        },
-                                        input: function($event) {
-                                          if ($event.target.composing) {
-                                            return
-                                          }
-                                          _vm.$set(
-                                            item,
-                                            "message",
-                                            $event.target.value
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "update-form-bottom" },
-                                  [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-primary p-2",
-                                        on: {
-                                          click: function($event) {
-                                            $event.stopPropagation()
-                                            _vm.isProcessing(item.index)
-                                            _vm.commentCreate(item.index)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("送信")]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  : _vm._e()
-              ]
-            })
-          ],
-          2
-        )
-      ]
-    )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              })
+            ],
+            2
+          )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []

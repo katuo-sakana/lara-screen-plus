@@ -1,5 +1,15 @@
 <template>
-    <div class="comment-wrapper">
+<div class="main">
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+      <div class="container d-flex justify-content-end">
+        <button
+        class="btn btn-primary p-2"
+        v-on:click.stop="commentCreate(positionList)"
+        >保存する</button>
+      </div>
+  </nav>
+  
+  <div class="comment-wrapper">
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner">
           <template v-for="item in positionList">
@@ -94,7 +104,7 @@
                 <div class="update-form-bottom">
                   <button
                     class="btn btn-primary p-2"
-                    v-on:click.stop="isProcessing(item.index); commentCreate(item.index)"
+                    v-on:click.stop="isProcessing(item.index)"
                     >送信</button>
                 </div>
               </form>
@@ -104,6 +114,7 @@
       </div>
       <!-- id:{{ $route.path }} -->
     </div>
+</div>
 </template>
 
 <script>
@@ -190,26 +201,28 @@ export default {
     commentEdit: function (currentIndex) {
       this.positionList[currentIndex].is_readonly = false;
     },
-    async commentCreate(currentIndex) {
-      // 現在の要素リストを取得
-      const currentList = this.positionList[currentIndex];
-      // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
-      const request = {
-        'status': currentList.status,
-        'formStatus': currentList.formStatus,
-        'done': currentList.done,
-        'is_readonly': currentList.is_readonly,
-        'message': currentList.message,
-        'index': currentList.index,
-        'positionX': currentList.positionX,
-        'positionY': currentList.positionY,
-        'windowY': currentList.windowY,
-        'positionFormX': currentList.positionFormX,
-        'positionFormY': currentList.positionFormY,
-        'page_id': parseInt(this.pageid),
-      };
-      
-      const response = await axios.post(this.endpoint, request);
+    async commentCreate(positionList) {
+      for(let positionListItem of positionList){
+        // 現在の要素リストを取得
+        // const currentList = this.positionList[currentIndex];
+        // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+        const request = {
+          'status': positionListItem.status,
+          'formStatus': positionListItem.formStatus,
+          'done': positionListItem.done,
+          'is_readonly': positionListItem.is_readonly,
+          'message': positionListItem.message,
+          'index': positionListItem.index,
+          'positionX': positionListItem.positionX,
+          'positionY': positionListItem.positionY,
+          'windowY': positionListItem.windowY,
+          'positionFormX': positionListItem.positionFormX,
+          'positionFormY': positionListItem.positionFormY,
+          'page_id': parseInt(this.pageid),
+        };
+        
+        const response = await axios.post(this.endpoint, request);
+      }
 
       // this.isLikedBy = true
       // this.countLikes = response.data.countLikes

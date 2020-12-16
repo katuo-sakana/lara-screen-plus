@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-comment')
 
 @section('content')
 {{-- {{ $page_id }} --}}

@@ -61,18 +61,25 @@ class HomeController extends Controller
 
     public function commentCreate(Request $request, Comment $comment)
     {
-        $comment->status = $request->status;
-        $comment->form_status = $request->formStatus;
-        $comment->done = $request->done;
-        $comment->is_readonly = $request->is_readonly;
-        $comment->message = $request->message;
-        $comment->index = $request->index;
-        $comment->position_x = $request->positionX;
-        $comment->position_y = $request->positionY;
-        $comment->window_y = $request->windowY;
-        $comment->position_form_x = $request->positionFormX;
-        $comment->position_form_y = $request->positionFormY;
-        $comment->page_id = $request->page_id;
-        $comment->save();
+        $comment->updateOrInsert(
+            [
+                'page_id' => $request->page_id,
+                'index' => $request->index
+            ],
+            [
+                'status' => $request->status,
+                'form_status' => $request->formStatus,
+                'done' => $request->done,
+                'is_readonly' => $request->is_readonly,
+                'message' => $request->message,
+                'index' => $request->index,
+                'position_x' => $request->positionX,
+                'position_y' => $request->positionY,
+                'window_y' => $request->windowY,
+                'position_form_x' => $request->positionFormX,
+                'position_form_y' => $request->positionFormY,
+                'page_id' => $request->page_id,
+            ]
+        );
     }
 }
