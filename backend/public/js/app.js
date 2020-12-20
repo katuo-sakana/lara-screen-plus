@@ -1924,16 +1924,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+//
+//
 //
 //
 //
@@ -2054,7 +2056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['imageurl', 'endpoint', 'directory', 'pageid'],
+  props: ['imageurl', 'endpoint', 'directory', 'pageid', 'commentsdata'],
   //   asyncData({ params }) {
   //     return { imgSrc: "images/" + params.id + "/00.png" };
   //   },
@@ -2064,19 +2066,49 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       message: "",
       counter: 1,
       processing: true,
-      positionList: [{
-        status: false,
-        formStatus: false,
-        done: false,
-        is_readonly: true,
-        index: 0,
-        positionX: 0,
-        positionY: 0,
-        windowY: 0,
-        positionFormX: 0,
-        positionFormY: 0
-      }]
+      // 初期値としてからのオブジェクトを入れてないと、updateMessageがうまく動作しないため
+      positionList: [{}]
     };
+  },
+  mounted: function mounted() {
+    this.$nextTick(function () {
+      // ビュー全体がレンダリングされた後にのみ実行されるコード
+      if (this.commentsdata !== null) {
+        // counter
+        this.counter = this.commentsdata.length; // positionList
+
+        var positionList = this.commentsdata;
+        var positionListChange = [];
+
+        var _iterator = _createForOfIteratorHelper(positionList),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var positionListItem = _step.value;
+            positionListChange.push({
+              status: Boolean(positionListItem.status),
+              form_status: Boolean(positionListItem.form_status),
+              done: Boolean(positionListItem.done),
+              is_readonly: Boolean(positionListItem.is_readonly),
+              message: positionListItem.message,
+              index: positionListItem.index,
+              position_x: positionListItem.position_x,
+              position_y: positionListItem.position_y,
+              window_y: positionListItem.window_y,
+              position_form_x: positionListItem.position_form_x,
+              position_form_y: positionListItem.position_form_y
+            });
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+
+        this.positionList = positionListChange;
+      }
+    });
   },
   methods: {
     updateMessage: function updateMessage(e) {
@@ -2096,28 +2128,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.positionList.push({
         status: true,
-        formStatus: true,
+        form_status: true,
         done: false,
         is_readonly: true,
         message: "",
         index: this.counter,
-        positionX: offsetX,
-        positionY: offsetY,
-        windowY: pageY,
-        positionFormX: offsetX,
-        positionFormY: offsetY + 50
+        position_x: offsetX,
+        position_y: offsetY,
+        window_y: pageY,
+        position_form_x: offsetX,
+        position_form_y: offsetY + 50
       });
       this.counter++;
       this.processing = false;
     },
     isProcessing: function isProcessing(currentIndex) {
       this.processing = true;
-      this.positionList[currentIndex].formStatus = false;
+      this.positionList[currentIndex].form_status = false;
     },
     closeMessage: function closeMessage(currentIndex) {
       this.processing = true;
       this.positionList[currentIndex].status = false;
-      this.positionList[currentIndex].formStatus = false;
+      this.positionList[currentIndex].form_status = false;
     },
     commentScroll: function commentScroll(position) {
       window.scrollTo({
@@ -2142,74 +2174,80 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _iterator, _step, positionListItem, request, response;
+        var _iterator2, _step2, positionListItem, request, response;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _iterator = _createForOfIteratorHelper(positionList);
+                _iterator2 = _createForOfIteratorHelper(positionList);
                 _context.prev = 1;
 
-                _iterator.s();
+                _iterator2.s();
 
               case 3:
-                if ((_step = _iterator.n()).done) {
-                  _context.next = 11;
+                if ((_step2 = _iterator2.n()).done) {
+                  _context.next = 13;
                   break;
                 }
 
-                positionListItem = _step.value;
-                // 現在の要素リストを取得
-                // const currentList = this.positionList[currentIndex];
-                // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+                positionListItem = _step2.value;
+
+                if (!(0 === Object.keys(positionListItem).length)) {
+                  _context.next = 7;
+                  break;
+                }
+
+                return _context.abrupt("continue", 11);
+
+              case 7:
                 request = {
                   'status': positionListItem.status,
-                  'formStatus': positionListItem.formStatus,
+                  'form_status': positionListItem.form_status,
                   'done': positionListItem.done,
                   'is_readonly': positionListItem.is_readonly,
                   'message': positionListItem.message,
                   'index': positionListItem.index,
-                  'positionX': positionListItem.positionX,
-                  'positionY': positionListItem.positionY,
-                  'windowY': positionListItem.windowY,
-                  'positionFormX': positionListItem.positionFormX,
-                  'positionFormY': positionListItem.positionFormY,
+                  'position_x': positionListItem.position_x,
+                  'position_y': positionListItem.position_y,
+                  'window_y': positionListItem.window_y,
+                  'position_form_x': positionListItem.position_form_x,
+                  'position_form_y': positionListItem.position_form_y,
                   'page_id': parseInt(_this.pageid)
                 };
-                _context.next = 8;
+                _context.next = 10;
                 return axios.post(_this.endpoint, request);
 
-              case 8:
+              case 10:
                 response = _context.sent;
 
-              case 9:
+              case 11:
                 _context.next = 3;
                 break;
 
-              case 11:
-                _context.next = 16;
+              case 13:
+                _context.next = 18;
                 break;
 
-              case 13:
-                _context.prev = 13;
+              case 15:
+                _context.prev = 15;
                 _context.t0 = _context["catch"](1);
 
-                _iterator.e(_context.t0);
+                _iterator2.e(_context.t0);
 
-              case 16:
-                _context.prev = 16;
+              case 18:
+                _context.prev = 18;
 
-                _iterator.f();
+                _iterator2.f();
 
-                return _context.finish(16);
+                return _context.finish(18);
 
-              case 19:
+              case 21:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 13, 16, 19]]);
+        }, _callee, null, [[1, 15, 18, 21]]);
       }))();
     }
   }
@@ -4204,7 +4242,7 @@ var render = function() {
                                   on: {
                                     click: function($event) {
                                       $event.stopPropagation()
-                                      return _vm.commentScroll(item.windowY)
+                                      return _vm.commentScroll(item.window_y)
                                     }
                                   }
                                 },
@@ -4333,8 +4371,8 @@ var render = function() {
                             {
                               staticClass: "click-btn click-btn--position",
                               style: {
-                                top: item.positionY + "px",
-                                left: item.positionX + "px"
+                                top: item.position_y + "px",
+                                left: item.position_x + "px"
                               }
                             },
                             [
@@ -4346,14 +4384,14 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          item.formStatus === true
+                          item.form_status === true
                             ? _c(
                                 "form",
                                 {
                                   staticClass: "update-form",
                                   style: {
-                                    top: item.positionFormY + "px",
-                                    left: item.positionFormX + "px"
+                                    top: item.position_form_y + "px",
+                                    left: item.position_form_x + "px"
                                   },
                                   attrs: { action: "", method: "post" }
                                 },

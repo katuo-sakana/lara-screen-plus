@@ -9,6 +9,8 @@
       </div>
   </nav>
   
+  <!-- {{ commentsdata }} -->
+  
   <div class="comment-wrapper">
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner">
@@ -32,7 +34,7 @@
                   ></textarea>
                 </div>
                 <div class="d-flex">
-                  <button v-on:click.stop="commentScroll(item.windowY)" class="btn btn-warning p-2">
+                  <button v-on:click.stop="commentScroll(item.window_y)" class="btn btn-warning p-2">
                 移動
                   </button>
                   <button v-on:click.stop="commentDelete(item.index)" class="btn btn-danger p-2">
@@ -65,8 +67,8 @@
               <div
                 class="click-btn click-btn--position"
                 v-bind:style="{
-                  top: item.positionY + 'px',
-                  left: item.positionX + 'px',
+                  top: item.position_y + 'px',
+                  left: item.position_x + 'px',
                 }"
               >
                 {{ item.index }}
@@ -74,12 +76,12 @@
   
               <form
                 class="update-form"
-                v-if="item.formStatus === true"
+                v-if="item.form_status === true"
                 action
                 method="post"
                 v-bind:style="{
-                  top: item.positionFormY + 'px',
-                  left: item.positionFormX + 'px',
+                  top: item.position_form_y + 'px',
+                  left: item.position_form_x + 'px',
                 }"
               >
                 <div class="update-form-upper">
@@ -120,7 +122,7 @@
 <script>
 export default {
   props: 
-  ['imageurl','endpoint','directory','pageid'],
+  ['imageurl','endpoint','directory','pageid','commentsdata'],
 //   asyncData({ params }) {
 //     return { imgSrc: "images/" + params.id + "/00.png" };
 //   },
@@ -130,21 +132,41 @@ export default {
       message: "",
       counter: 1,
       processing: true,
-      positionList: [
-        {
-          status: false,
-          formStatus: false,
-          done: false,
-          is_readonly: true,
-          index: 0,
-          positionX: 0,
-          positionY: 0,
-          windowY: 0,
-          positionFormX: 0,
-          positionFormY: 0,
-        },
+       // 初期値としてからのオブジェクトを入れてないと、updateMessageがうまく動作しないため
+      positionList: 
+      [
+        {}
       ],
     };
+  },
+  mounted: function () {
+    this.$nextTick(function () {
+      // ビュー全体がレンダリングされた後にのみ実行されるコード
+      if(this.commentsdata !== null) {
+        // counter
+        this.counter = this.commentsdata.length;
+        
+        // positionList
+        const positionList = this.commentsdata;
+        const positionListChange = [];
+        for(const positionListItem of positionList) {
+          positionListChange.push({
+            status: Boolean(positionListItem.status),
+            form_status: Boolean(positionListItem.form_status),
+            done: Boolean(positionListItem.done),
+            is_readonly: Boolean(positionListItem.is_readonly),
+            message: positionListItem.message,
+            index: positionListItem.index,
+            position_x: positionListItem.position_x,
+            position_y: positionListItem.position_y,
+            window_y: positionListItem.window_y,
+            position_form_x: positionListItem.position_form_x,
+            position_form_y: positionListItem.position_form_y,
+          })
+        }
+        this.positionList = positionListChange;
+      }
+    })
   },
   methods: {
     updateMessage: function (e) {
@@ -159,28 +181,28 @@ export default {
       // let clientY = e.clientY; // =>ページ左上からのy座標
       this.positionList.push({
         status: true,
-        formStatus: true,
+        form_status: true,
         done: false,
         is_readonly: true,
         message: "",
         index: this.counter,
-        positionX: offsetX,
-        positionY: offsetY,
-        windowY: pageY,
-        positionFormX: offsetX,
-        positionFormY: offsetY + 50,
+        position_x: offsetX,
+        position_y: offsetY,
+        window_y: pageY,
+        position_form_x: offsetX,
+        position_form_y: offsetY + 50,
       });
       this.counter++;
       this.processing = false;
     },
     isProcessing: function (currentIndex) {
       this.processing = true;
-      this.positionList[currentIndex].formStatus = false;
+      this.positionList[currentIndex].form_status = false;
     },
     closeMessage: function (currentIndex) {
       this.processing = true;
       this.positionList[currentIndex].status = false;
-      this.positionList[currentIndex].formStatus = false;
+      this.positionList[currentIndex].form_status = false;
     },
     commentScroll: function (position) {
       window.scrollTo({
@@ -203,21 +225,22 @@ export default {
     },
     async commentCreate(positionList) {
       for(let positionListItem of positionList){
-        // 現在の要素リストを取得
-        // const currentList = this.positionList[currentIndex];
-        // const articleにそれぞれのindexのstatusやmessageをいれればオッケー
+        // オブジェクトが空ならばループをスキップ
+        if (0 === Object.keys(positionListItem).length) {
+          continue;
+        }
         const request = {
           'status': positionListItem.status,
-          'formStatus': positionListItem.formStatus,
+          'form_status': positionListItem.form_status,
           'done': positionListItem.done,
           'is_readonly': positionListItem.is_readonly,
           'message': positionListItem.message,
           'index': positionListItem.index,
-          'positionX': positionListItem.positionX,
-          'positionY': positionListItem.positionY,
-          'windowY': positionListItem.windowY,
-          'positionFormX': positionListItem.positionFormX,
-          'positionFormY': positionListItem.positionFormY,
+          'position_x': positionListItem.position_x,
+          'position_y': positionListItem.position_y,
+          'window_y': positionListItem.window_y,
+          'position_form_x': positionListItem.position_form_x,
+          'position_form_y': positionListItem.position_form_y,
           'page_id': parseInt(this.pageid),
         };
         

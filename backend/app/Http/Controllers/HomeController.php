@@ -51,12 +51,16 @@ class HomeController extends Controller
         return redirect()->route('comment', ['directory' => $random_directory]);
     }
 
-    public function comment($directory, Page $page)
+    public function comment($directory, Page $page, Comment $comment)
     {
         // リダイレクト先のpagesテーブルのid取得
         $page_id = $page->where('url', $directory)->first()->id;
         $image_url = "/storage/{$directory}/example01.png";
-        return view('comment', compact('image_url', 'directory', 'page_id'));
+
+        // 既存のコメント情報があった場合表示
+        $comments = $comment->where('page_id', $page_id)->get();
+
+        return view('comment', compact('image_url', 'directory', 'page_id', 'comments'));
     }
 
     public function commentCreate(Request $request, Comment $comment)
@@ -68,16 +72,16 @@ class HomeController extends Controller
             ],
             [
                 'status' => $request->status,
-                'form_status' => $request->formStatus,
+                'form_status' => $request->form_status,
                 'done' => $request->done,
                 'is_readonly' => $request->is_readonly,
                 'message' => $request->message,
                 'index' => $request->index,
-                'position_x' => $request->positionX,
-                'position_y' => $request->positionY,
-                'window_y' => $request->windowY,
-                'position_form_x' => $request->positionFormX,
-                'position_form_y' => $request->positionFormY,
+                'position_x' => $request->position_x,
+                'position_y' => $request->position_y,
+                'window_y' => $request->window_y,
+                'position_form_x' => $request->position_form_x,
+                'position_form_y' => $request->position_form_y,
                 'page_id' => $request->page_id,
             ]
         );
