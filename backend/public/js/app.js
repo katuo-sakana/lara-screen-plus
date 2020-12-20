@@ -4191,7 +4191,7 @@ var render = function() {
                               _c("span", { staticClass: "click-btn" }, [
                                 _vm._v(
                                   "\n                    " +
-                                    _vm._s(item.index) +
+                                    _vm._s(item.index + 1) +
                                     "\n                  "
                                 )
                               ]),
@@ -4378,7 +4378,7 @@ var render = function() {
                             [
                               _vm._v(
                                 "\n                " +
-                                  _vm._s(item.index) +
+                                  _vm._s(item.index + 1) +
                                   "\n              "
                               )
                             ]

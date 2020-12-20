@@ -19,7 +19,7 @@
               <div>
                 <div>
                   <span class="click-btn">
-                    {{ item.index }}
+                    {{ item.index + 1 }}
                   </span>
                   <textarea
                     name=""
@@ -71,7 +71,7 @@
                   left: item.position_x + 'px',
                 }"
               >
-                {{ item.index }}
+                {{ item.index + 1 }}
               </div>
   
               <form
