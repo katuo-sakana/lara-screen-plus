@@ -39,8 +39,8 @@ class HomeController extends Controller
         $page = $browser->newPage();
         $page->goto($capture_url);
         $page->screenshot([
-            // 'path' => "{$directory_path}/example01.png",
-            'path' => "example01.png",
+            'path' => "{$directory_path}/example01.png",
+            // 'path' => "example01.png",
             'fullPage' => true
         ]);
         $browser->close();
